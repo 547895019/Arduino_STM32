@@ -49,7 +49,9 @@
 // currently officially supports).
 #ifndef BOARD_RCC_PLLMUL
   #if !USE_HSI_CLOCK
-	#if F_CPU==128000000
+	#if F_CPU==192000000
+		#define BOARD_RCC_PLLMUL RCC_PLLMUL_24
+	#elif F_CPU==128000000
 		#define BOARD_RCC_PLLMUL RCC_PLLMUL_16
 	#elif F_CPU==72000000
 		#define BOARD_RCC_PLLMUL RCC_PLLMUL_9
@@ -82,9 +84,15 @@ namespace wirish {
         __weak void board_setup_clock_prescalers(void) {
             rcc_set_prescaler(RCC_PRESCALER_AHB, RCC_AHB_SYSCLK_DIV_1);
             rcc_set_prescaler(RCC_PRESCALER_APB1, RCC_APB1_HCLK_DIV_2);
-            rcc_set_prescaler(RCC_PRESCALER_APB2, RCC_APB2_HCLK_DIV_1);
+			#if F_CPU == 192000000
+            rcc_set_prescaler(RCC_PRESCALER_APB2, RCC_APB2_HCLK_DIV_2);
+			#else
+			rcc_set_prescaler(RCC_PRESCALER_APB2, RCC_APB2_HCLK_DIV_1);
+			#endif
 			rcc_clk_disable(RCC_USB);
-			#if F_CPU == 72000000
+			#if F_CPU == 192000000
+			rcc_set_prescaler(RCC_PRESCALER_USB, RCC_USB_SYSCLK_DIV_4);
+			#elif F_CPU == 72000000
 			rcc_set_prescaler(RCC_PRESCALER_USB, RCC_USB_SYSCLK_DIV_1_5);
 			#elif F_CPU == 48000000
 			rcc_set_prescaler(RCC_PRESCALER_USB, RCC_USB_SYSCLK_DIV_1);			

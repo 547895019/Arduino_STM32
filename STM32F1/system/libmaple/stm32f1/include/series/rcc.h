@@ -540,6 +540,10 @@ typedef enum rcc_usb_divider {
     RCC_USB_SYSCLK_DIV_1_5 = 0x0 << 22,
     RCC_USB_SYSCLK_DIV_2 = 0x3 << 22,
     RCC_USB_SYSCLK_DIV_2_5 = 0x2 << 22,
+	RCC_USB_SYSCLK_DIV_3 = 0x08400000,
+    RCC_USB_SYSCLK_DIV_3_5 = 0x08000000,
+	RCC_USB_SYSCLK_DIV_4 = 0x08800000,
+	RCC_USB_SYSCLK_DIV_4_0 = 0x08C00000,
 } rcc_usb_divider;
 
 
@@ -589,6 +593,7 @@ typedef enum rcc_pll_multiplier {
     RCC_PLLMUL_14 = (0xC << 18),
     RCC_PLLMUL_15 = (0xD << 18),
     RCC_PLLMUL_16 = (0xE << 18),
+	RCC_PLLMUL_24= (0x201C0000 | 0x80000000),
 } rcc_pll_multiplier;
 
 /* FIXME [0.0.13] Just have data point to an rcc_pll_multiplier! */
